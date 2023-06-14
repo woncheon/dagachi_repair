@@ -173,59 +173,37 @@ public class UsrCommonController {
 	}
 	
 	@GetMapping("/forget")
-	public void forget(String member_name,String member_phone) {}
+	public void forget(String member_name, String member_phone) {
+	}
 
-	
-	@PostMapping("/findId")
-	public String findId(Model model,String name,String phone,String email) {
-		String url=" ";
-		String msg="";
-	   Member member =  memberService.findId(name, email);
-	   
-	   if(member == null) {
-		   url="../jsp/common/forget";
-		   msg="입력하신 정보에 일치하는 아이디가 없습니다.";
-		   model.addAttribute("msg",msg);
-	   }
-	   if(member != null) {
-		   model.addAttribute("member",member);
-		   url="../jsp/common/resultId";
-	   }
-	   
-	   model.addAttribute("name",name);
-	   model.addAttribute("phone",phone);
-	   model.addAttribute("email",email);
-      	  
-	   
-		 
-	return url;	
+	@RequestMapping("/findId")
+	@ResponseBody
+	public String findId(String name, String phone, String email) {
+	    String msg = "";
+	    Member member = memberService.findId(name, email);
+
+	    if (member == null) {
+	        msg = "입력하신 정보에 일치하는 아이디가 없습니다.";
+	        return msg;
+	    } else {
+	        return member.getMember_id();
+	    }
 	}
+
 	@PostMapping("/findPwd")
-	public String findPwd(Model model,String nameForPwd,String phoneForPwd,String emailForPwd,String id) {
-	  String url="";
-	  String msg="";
-	  
-	  Member member= memberService.findPwd(id, nameForPwd);
-	  
-	  if(member ==null) {
-		  url="../jsp/common/forget";
-		  msg="입력하신 정보에 일치하는 회원이 없거나,입력오류입니다 다시 입력해주세요.";
-		  model.addAttribute("msg",msg);
-	  }
-	  if(member !=null) {
-		  model.addAttribute("member", member);
-		  url="../jsp/common/resultPwd";
-		  
-	  }
-	  model.addAttribute("nameForPwd",nameForPwd);
-	   model.addAttribute("phoneForPwd ",phoneForPwd);
-	   model.addAttribute("emailForPwd",emailForPwd);
-	   model.addAttribute("id", id);
-	 
-	  
-	return url; 	
-		
+	@ResponseBody
+	public String findPwd(String nameForPwd, String phoneForPwd, String emailForPwd, String id) {
+	    String msg = "";
+	    Member member = memberService.findPwd(id, nameForPwd);
+
+	    if (member == null) {
+	        msg = "입력하신 정보에 일치하는 회원이 없거나, 입력 오류입니다. 다시 입력해주세요.";
+	        return msg;
+	    } else {
+	        return member.getMember_pwd();
+	    }
 	}
+
 
 }
 

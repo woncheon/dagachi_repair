@@ -69,18 +69,7 @@ div>p{
 
 
 
-<script>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-</script>
+
 
 
 

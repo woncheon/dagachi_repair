@@ -28,81 +28,133 @@ width:200px;
 margin-left:20px;
 
 }
+
+
+        #modal-id.modal-overlay {
+           
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(1.5px);
+            -webkit-backdrop-filter: blur(1.5px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        #modal-id .modal-window {
+            background: rgba( 69, 139, 197, 0.70 );
+            box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+            backdrop-filter: blur( 13.5px );
+            -webkit-backdrop-filter: blur( 13.5px );
+            border-radius: 10px;
+            border: 1px solid rgba( 255, 255, 255, 0.18 );
+            width: 400px;
+            height: 500px;
+            position: relative;
+            top: -100px;
+            padding: 10px;
+        }
+        #modal-id .title {
+            padding-left: 10px;
+            display: inline;
+            text-shadow: 1px 1px 2px gray;
+            color: white;
+            
+        }
+        #modal-id .title h2 {
+            display: inline;
+        }
+        #modal-id .close-area {
+            display: inline;
+            float: right;
+            padding-right: 10px;
+            cursor: pointer;
+            text-shadow: 1px 1px 2px gray;
+            color: white;
+        }
+        
+        #modal-id .content {
+            margin-top: 20px;
+            padding: 0px 10px;
+            text-shadow: 1px 1px 2px gray;
+            color: white;
+        }
+        
+        #modal-pwd.modal-overlay {
+           
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(1.5px);
+            -webkit-backdrop-filter: blur(1.5px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        #modal-pwd .modal-window {
+            background: rgba( 69, 139, 197, 0.70 );
+            box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+            backdrop-filter: blur( 13.5px );
+            -webkit-backdrop-filter: blur( 13.5px );
+            border-radius: 10px;
+            border: 1px solid rgba( 255, 255, 255, 0.18 );
+            width: 400px;
+            height: 500px;
+            position: relative;
+            top: -100px;
+            padding: 10px;
+        }
+        #modal-pwd .title {
+            padding-left: 10px;
+            display: inline;
+            text-shadow: 1px 1px 2px gray;
+            color: white;
+            
+        }
+        #modal-pwd .title h2 {
+            display: inline;
+        }
+        #modal-pwd .close-area {
+            display: inline;
+            float: right;
+            padding-right: 10px;
+            cursor: pointer;
+            text-shadow: 1px 1px 2px gray;
+            color: white;
+        }
+        
+        #modal-pwd .content {
+            margin-top: 20px;
+            padding: 0px 10px;
+            text-shadow: 1px 1px 2px gray;
+            color: white;
+        }
+
 </style>
 <div class="content-wrapper">
    <div class="card">
       <div class="card-header"
-         style="display: flex; justify-content: center;">
+         style="display: flex; justify-content:space-between; ">
          <h3 class="text-bold text-4xl">ID/PWD 찾기
          <i class="fas fa-search"></i>
          </h3>
       </div>
       <div class="card-body" style="background-color: #f1f1f1;">
-<%-- <div  class="card card-primary mx-auto" style="width: 600px;">
-    <div class="card-header" style="width:100%;">
-        <h4 class="card-title">아이디 찾기</h4>
-    </div>
-    <div class="card-body" style="margin-left: 30px; display: flex; flex-direction: column; justify-content: space-around;">
-   <form id="id"action="findId" method="post">
-        <div class="mb-2" style="display: flex; align-items: center;">
-            <span>이름</span> <input class="form-control col-sm-6" placeholder="이름을 입력해주세요." name="name" type="text" value="${name }">
-        </div>
-        <div class="mb-2" style="display: flex; align-items: center;">
-            <span>전화번호</span> <input class="form-control col-sm-6" placeholder="ex)010-0000-0000" name="phone"type="text" value="${phone }">
-        </div>
-        <div class="mb-2" style="display: flex; align-items: center;">
-            <span>이메일</span> <input  class="form-control col-sm-6" placeholder="example@xxxx.com" name="email"type="text" value="${email }">
-        </div>
-    </form>
-    <div style="margin-right: 50px; display: flex; justify-content: flex-end;">
-        <button type="button"onclick="idfind_go()"class="btn btn-block btn-primary col-sm-2" style="height: 40px;">ID찾기</button>
-    </div>
-    </div>
 
-</div> --%>
-
-
-<%-- <div class="card card-primary mx-auto" style="width: 600px;">
-    <div class="card-header" style="width:100%; ">
-        <h4 class="card-title">비밀번호 찾기</h4>
-    </div>
-    <div class="card-body" style="margin-left: 30px; display: flex; flex-direction: column; justify-content: space-around;">
-        <form id="pwd" method="post" action="findPwd">
-        <div class="mb-2" style="display: flex; align-items: center;">
-        <div class="col-sm-1"></div> 
-            <label class="col-sm-2">아이디</label> <input class="form-control col-sm-6" placeholder="아이디를 입력해주세요."   name="id" type="text"value="${id }" >
-        <div class="col-sm-2"></div>
-        </div>
-        <div class="mb-2" style="display: flex; align-items: center;">
-        <div class="col-sm-1"></div>
-            <label class="col-sm-2">이름</label> <input class="form-control col-sm-6" placeholder="이름을 입력해주세요."name="nameForPwd" type="text" value="${nameForPwd }">
-        <div class="col-sm-2"></div>
-        </div>
-        <div class="mb-2" style="display: flex; align-items: center;">
-        <div class="col-sm-1"></div>
-            <label class="col-sm-2">전화번호</label>
-<input class="form-control col-sm-6"  placeholder="ex)010-0000-0000" name="phoneForPwd"type="text"value="${phoneForPwd }">
-        <div class="col-sm-2"></div>
-        </div>
-        <div class="mb-2" style="display: flex; align-items: center;">
-        <div class="col-sm-1"></div>
-            <label class="col-sm-2">이메일</label> <input class="form-control col-sm-6" placeholder="example@xxxx.com"name="emailForPwd" type="text" value="${emailForPwd}">
-        <div class="col-sm-2"></div>
-        </div>
-    </form>
-    <div style="margin-right: 50px; display: flex; justify-content: flex-end;">
-        <button type="button" onclick="pwdfind_go()"class="btn btn-block btn-primary col-sm-3" style="height: 40px;">PWD 찾기</button>
-    </div>
-    </div>
-   
-
-</div> --%>
-    
-
-   
-   
-   
-   
    
       <div class="card md:card-side bg-base-100 shadow-xl h-1/2">
   <div class="flex justify-center items-center border-r border-gray-700 bg-blue-100 rounded-l-2xl">
@@ -117,7 +169,7 @@ margin-left:20px;
       <div class="font-bold">이메일&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"  name="email"placeholder="example@xxxx.com" class="input input-bordered w-full max-w-xs" /></div>
        </br>
        <div style="margin-right:50px;display:flex; justify-content:flex-end;">
-       <button type="button"onclick="idfind_go()"class="btn btn-block btn-primary col-sm-3">ID찾기</button>
+       <button type="button"onclick="idfind_go();"class="btn btn-block btn-primary col-sm-3" id="btn-modal-id">ID찾기</button>
        </div>
       </form> 
     
@@ -142,7 +194,7 @@ margin-left:20px;
        <div class="font-bold">이메일&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" placeholder="example@xxxx.com" name="emailForPwd" class="input input-bordered w-full max-w-xs" /></div>
        </br>
        <div style="margin-right: 50px; display: flex; justify-content: flex-end;">
-        <button type="button" onclick="pwdfind_go()"class="btn btn-block btn-primary col-sm-3" style="height: 40px;">PWD 찾기</button>
+        <button id="btn-modal-pwd"  onclick="pwdfind_go();"type="button" class="btn btn-block btn-primary col-sm-3" style="height: 40px;">PWD 찾기</button>
        </div>
       </form> 
     
@@ -150,14 +202,62 @@ margin-left:20px;
 </div>
    
      <div style="margin-right:50px;display:flex; justify-content:flex-end;">
-      <button onclick="window.close()"class="btn btn-active btn-ghost col-sm-2" style="width:60px; height:40px;">닫기</button>
+       <button onclick="window.close()"class="btn btn-active btn-ghost col-sm-2" style="width:60px; height:40px;">닫기</button>
       </div>
       
          </div>
       
    </div>
-   
 </div>
+   
+   <div id="modal-id" class="modal-overlay">
+   <div class="modal-window">
+   <div class="card border-success mb-3" style="height:100%;">
+    <div class="card-header text-bold text-center text-2xl">아이디를 잊으셨나요?</div>
+  <div class="card-body flex items-center">
+  <div class="resultid w-full text-center text-2xl text-bold">
+        회원님의 찾으신 아이디는
+        <br/>
+       <p id="reId" class="text-bold text-6xl text-success reId"></p>
+        <p class="text-2xl text-bold">
+         입니다.
+        </p>
+  </div>     
+    </div>
+    <div class="footer-btn flex justify-center">
+   <button type="button" class="btn btn-block btn-success btn-sm close-area mr-2" style="width:150px; height:40px;">닫기</button>
+   </div>
+  </div>
+  </div>
+   </div>
+   
+   <div id="modal-pwd" class="modal-overlay">
+   <div class="modal-window">
+   <div class="card border-success mb-3" style="height:100%;">
+    <div class="card-header text-bold text-center text-2xl">비밀번호를 잊으셨나요?</div>
+  <div class="card-body flex items-center">
+  <div class="resultid w-full text-center text-2xl text-bold">
+        회원님의 찾으신 비밀번호는
+        <br/>
+        <p id="rePwd"class="text-bold text-6xl text-success rePwd"></p>
+        <p class="text-2xl text-bold">
+         입니다.
+        </p>
+  </div>     
+    </div>
+    <div class="footer-btn flex justify-center">
+   <button type="button" class="btn btn-block btn-success btn-sm close-area mr-2" style="width:150px; height:40px;">닫기</button>
+   </div>
+  </div>
+  </div>
+   </div>
+   
+   
+
+
+
+
+
 
 
 
@@ -169,57 +269,140 @@ if (msg !== null && msg !== "") {
    
 
 function idfind_go() {
-     var name = document.getElementsByName("name")[0].value;
-     var phone = document.getElementsByName("phone")[0].value;
-     var email = document.getElementsByName("email")[0].value;
+	  var name = document.getElementsByName("name")[0].value;
+	  var phone = document.getElementsByName("phone")[0].value;
+	  var email = document.getElementsByName("email")[0].value;
 
-     if (name.trim() === "" || phone.trim() === "" || email.trim() === "") {
-       alert("이름, 전화번호 및 이메일을 모두 입력해주세요.");
-       return;
-     }
+	  if (name.trim() === "" || phone.trim() === "" || email.trim() === "") {
+	    alert("이름, 전화번호 및 이메일을 모두 입력해주세요.");
+	    return;
+	  }
 
-     // Email validation
-     var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-     if (!emailRegex.test(email)) {
-       alert("이메일을 올바른 형식으로 입력해주세요. (ex: example@xxxx.com)");
-       return;
-     }
+	 
+	  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+	  if (!emailRegex.test(email)) {
+	    alert("이메일을 올바른 형식으로 입력해주세요. (ex: example@xxxx.com)");
+	    return;
+	  }
 
-     // Perform the rest of the logic for finding the ID
-     // ...
+	  $.ajax({
+		    url: "findId",
+		    type: "POST",
+		    dataType: "json",
+		    data: {
+		      name: name,
+		      phone: phone,
+		      email: email
+		    },
+		    success: function(response) {
+		      console.log(response);
 
-     // Submit the form
-     document.forms["id"].submit();
-   }
-function pwdfind_go() {
-     var id = document.getElementsByName("id")[0].value;
-     var nameForPwd = document.getElementsByName("nameForPwd")[0].value;
-     var phoneForPwd = document.getElementsByName("phoneForPwd")[0].value;
-     var emailForPwd = document.getElementsByName("emailForPwd")[0].value;
+		      // 결과를 출력할 요소 선택
+		      var reIdElement = document.getElementById('reId');
 
-     if (id.trim() === "" || nameForPwd.trim() === "" || phoneForPwd.trim() === "" || emailForPwd.trim() === "") {
-       alert("아이디, 이름, 전화번호 및 이메일을 모두 입력해주세요.");
-       return;
-     }
-     var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-     if (!emailRegex.test(emailForPwd)) {
-       alert("이메일을 올바른 형식으로 입력해주세요. (ex: example@xxxx.com)");
-       return;
-     }
+		      // 결과를 포함한 HTML 생성
+		      var resultHTML = "<p id='reId' class='text-bold text-6xl text-success reId'>" + response + "</p>";
 
-     // Phone number validation
-     var phoneRegex = /^\d{3}-\d{4}-\d{4}$/;
-     if (!phoneRegex.test(phoneForPwd)) {
-       alert("전화번호를 형식에 맞게 입력해주세요. (ex: 000-0000-0000)");
-       return;
-     }
+		      // 결과를 요소에 삽입
+		      reIdElement.innerHTML = resultHTML;
 
-     // Perform the rest of the logic for finding the password
-     // ...
+		      // 폼 제출
+		      document.forms["id"].submit();
+		    },
+		    error: function(xhr, status, error) {
+		      console.log("에러 " + error);
+		    }
+		  });
+		}
 
-     // Submit the form
-     document.forms["pwd"].submit();
-   }
+	function pwdfind_go() {
+	  var id = document.getElementsByName("id")[0].value;
+	  var nameForPwd = document.getElementsByName("nameForPwd")[0].value;
+	  var phoneForPwd = document.getElementsByName("phoneForPwd")[0].value;
+	  var emailForPwd = document.getElementsByName("emailForPwd")[0].value;
+
+	  if (id.trim() === "" || nameForPwd.trim() === "" || phoneForPwd.trim() === "" || emailForPwd.trim() === "") {
+	    alert("아이디, 이름, 전화번호 및 이메일을 모두 입력해주세요.");
+	    return;
+	  }
+	  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+	  if (!emailRegex.test(emailForPwd)) {
+	    alert("이메일을 올바른 형식으로 입력해주세요. (ex: example@xxxx.com)");
+	    return;
+	  }
+
+	  var phoneRegex = /^\d{3}-\d{4}-\d{4}$/;
+	  if (!phoneRegex.test(phoneForPwd)) {
+	    alert("전화번호를 형식에 맞게 입력해주세요. (ex: 000-0000-0000)");
+	    return;
+	  }
+
+	  $.ajax({
+		    url: "findPwd",
+		    type: "POST",
+		    dataType: "json",
+		    data: {
+		      id: id,
+		      nameForPwd: nameForPwd,
+		      phoneForPwd: phoneForPwd,
+		      emailForPwd: emailForPwd
+		    },
+		    success: function(response) {
+		      console.log(response);
+
+		      // 결과를 출력할 요소 선택
+		      var rePwdElement = document.getElementById('rePwd');
+
+		      // 결과를 요소에 삽입
+		      rePwdElement.innerHTML = response;
+
+		      // 폼 제출
+		      document.forms["pwd"].submit();
+		    },
+		    error: function(xhr, status, error) {
+		      console.log("에러 " + error);
+		    }
+		  });
+		}
+
+
+   
+const modal = document.getElementById("modal-id")
+const btnModal = document.getElementById("btn-modal-id")
+btnModal.addEventListener("click", e => {
+    modal.style.display = "flex"
+})
+
+const closeBtn = modal.querySelector(".close-area")
+closeBtn.addEventListener("click", e => {
+    modal.style.display = "none"
+})
+
+modal.addEventListener("click", e => {
+    const evTarget = e.target
+    if(evTarget.classList.contains("modal-overlay")) {
+        modal.style.display = "none"
+    }
+})
+
+
+const modal2 = document.getElementById("modal-pwd")
+const btnModal2 = document.getElementById("btn-modal-pwd")
+btnModal2.addEventListener("click", e => {
+    modal2.style.display = "flex"
+})
+
+const closeBtn2 = modal2.querySelector(".close-area")
+closeBtn2.addEventListener("click", e => {
+    modal2.style.display = "none"
+})
+
+modal2.addEventListener("click", e => {
+    const evTarget = e.target
+    if(evTarget.classList.contains("modal-overlay")) {
+        modal2.style.display = "none"
+    }
+})
    
    
 </script>
