@@ -16,6 +16,6 @@
             </div>
             <!-- Message End -->
           </a>
-          <div class="dropdown-divider"></div>
+        
 	</li>
 </c:forEach>

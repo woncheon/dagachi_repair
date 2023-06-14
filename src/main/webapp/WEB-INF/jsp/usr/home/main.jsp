@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="pageTitle" value="메인" />
 
-<%@include file="/WEB-INF/jsp/include/head.jspf" %>
+<%@include file="/WEB-INF/jsp/include/head2.jspf" %>
 <!-- jquery CDN -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <!-- fullcalendar CDN -->
@@ -45,7 +45,7 @@
 
 
 
-<div class="content-wrapper">
+<div class="p-4 sm:ml-64">
   <div class="row" style="background-color:#FCFCFC" >
     <div class="col-7">
       <div class="row m-4" style="width:100%;">
@@ -347,6 +347,7 @@
   </div>
 
 
+</div>
 
 
 
@@ -381,6 +382,7 @@ $.ajax({
         console.log("Error: " + error);
     }
 });
+
 
 function formatDate(date) {
     return date.toLocaleString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' });
