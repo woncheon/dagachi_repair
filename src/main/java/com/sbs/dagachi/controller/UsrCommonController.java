@@ -29,12 +29,13 @@ public class UsrCommonController {
 
 	@Autowired
 	private MemberService memberService;
-	
+
 	private AttendenceService attendenceService;
-	
+
 	private VacationService vacationService;
 
-	public UsrCommonController(MemberService memberService,AttendenceService attendenceService,VacationService vacationService) {
+	public UsrCommonController(MemberService memberService, AttendenceService attendenceService,
+			VacationService vacationService) {
 		this.memberService = memberService;
 		this.attendenceService = attendenceService;
 		this.vacationService = vacationService;
@@ -46,7 +47,9 @@ public class UsrCommonController {
 	}
 
 	@PostMapping("/dologin")
-	public String dologin(HttpSession session, String member_id, String member_pwd, HttpServletRequest request ,Integer attendence_month_vacation_cnt, Integer attendence_year_vacation_cnt, String attendence_regDate,String member_department,String member_team ) {
+	public String dologin(HttpSession session, String member_id, String member_pwd, HttpServletRequest request,
+			Integer attendence_month_vacation_cnt, Integer attendence_year_vacation_cnt, String attendence_regDate,
+			String member_department, String member_team) {
 		String url = "";
 		String msg = "";
 		int result = memberService.login(member_id, member_pwd);
@@ -56,27 +59,25 @@ public class UsrCommonController {
 			Member loginUser = memberService.getMemberById(member_id);
 			session.setAttribute("loginUser", loginUser);
 			loginUser.setMember_status(1);
-			
+
 			Integer year = vacationService.getTotalYear(loginUser.getMember_id());
-	        Integer month = vacationService.getTotalMonth(loginUser.getMember_id());
+			Integer month = vacationService.getTotalMonth(loginUser.getMember_id());
 
-	        
-	        member_department = String.valueOf(loginUser.getMember_department());
-	        member_team = String.valueOf(loginUser.getMember_team());
-	      
-	        if (attendence_month_vacation_cnt != null) {
-	            month = attendence_month_vacation_cnt;
-	        }
-	        if (attendence_year_vacation_cnt != null) {
-	            year = attendence_year_vacation_cnt;
-	        }
+			member_department = String.valueOf(loginUser.getMember_department());
+			member_team = String.valueOf(loginUser.getMember_team());
 
-	        
-	        attendenceService.attendenceInsert(loginUser.getMember_id(), loginUser.getMember_status(), month, year,
-	                attendence_regDate, member_department, member_team);
+			if (attendence_month_vacation_cnt != null) {
+				month = attendence_month_vacation_cnt;
+			}
+			if (attendence_year_vacation_cnt != null) {
+				year = attendence_year_vacation_cnt;
+			}
 
-	        System.out.println("@@@@@@@@@" + loginUser.getMember_id() + loginUser.getMember_status() + month + year
-	                + attendence_regDate + loginUser.getMember_department() + loginUser.getMember_team());
+			attendenceService.attendenceInsert(loginUser.getMember_id(), loginUser.getMember_status(), month, year,
+					attendence_regDate, member_department, member_team);
+
+			System.out.println("@@@@@@@@@" + loginUser.getMember_id() + loginUser.getMember_status() + month + year
+					+ attendence_regDate + loginUser.getMember_department() + loginUser.getMember_team());
 
 		} else if (result == 1) {
 			url = "../jsp/common/login";
@@ -95,83 +96,81 @@ public class UsrCommonController {
 
 		return url;
 	}
+
 	@GetMapping("/logout")
 	public String logout(HttpSession session,
-	                     @RequestParam(value="attendence_member", required=false) String attendence_member,
-	                     @RequestParam(defaultValue = "2") int member_status,
-	                     @RequestParam(value="member_department", required=false) String member_department,
-	                     @RequestParam(value="member_team", required=false) String member_team,
-	                     Integer attendence_month_vacation_cnt,
-	                     Integer attendence_year_vacation_cnt,
-	                     String attendence_regDate) {
-	    Member loginUser = memberService.getMemberById(attendence_member);
+			@RequestParam(value = "attendence_member", required = false) String attendence_member,
+			@RequestParam(defaultValue = "2") int member_status,
+			@RequestParam(value = "member_department", required = false) String member_department,
+			@RequestParam(value = "member_team", required = false) String member_team,
+			Integer attendence_month_vacation_cnt, Integer attendence_year_vacation_cnt, String attendence_regDate) {
+		Member loginUser = memberService.getMemberById(attendence_member);
 
-	    if (loginUser != null) {
-	        session.setAttribute("loginUser", loginUser);
+		if (loginUser != null) {
+			session.setAttribute("loginUser", loginUser);
 
-	        Integer year = vacationService.getTotalYear(loginUser.getMember_id());
-	        Integer month = vacationService.getTotalMonth(loginUser.getMember_id());
+			Integer year = vacationService.getTotalYear(loginUser.getMember_id());
+			Integer month = vacationService.getTotalMonth(loginUser.getMember_id());
 
-	        if (attendence_month_vacation_cnt != null) {
-	            month = attendence_month_vacation_cnt;
-	        }
-	        if (attendence_year_vacation_cnt != null) {
-	            year = attendence_year_vacation_cnt;
-	        }
+			if (attendence_month_vacation_cnt != null) {
+				month = attendence_month_vacation_cnt;
+			}
+			if (attendence_year_vacation_cnt != null) {
+				year = attendence_year_vacation_cnt;
+			}
 
-	        attendenceService.attendenceInsert(attendence_member, member_status, month, year,
-	                attendence_regDate, member_department, member_team);
+			attendenceService.attendenceInsert(attendence_member, member_status, month, year, attendence_regDate,
+					member_department, member_team);
 
-	        System.out.println("@@@@@@@@@@@@" + attendence_member + member_status + month + year + attendence_regDate + member_department + member_team);
+			System.out.println("@@@@@@@@@@@@" + attendence_member + member_status + month + year + attendence_regDate
+					+ member_department + member_team);
 
-	        String url = "../jsp/common/login";
+			String url = "../jsp/common/login";
 
-	        session.invalidate();
+			session.invalidate();
 
-	        return url;
-	    } else {
-	        return "redirect:/common/login";
-	    }
+			return url;
+		} else {
+			return "redirect:/common/login";
+		}
 	}
-	
+
 	@PostMapping("/changeStatus")
 	@ResponseBody
-	public String changeStatus(HttpSession session, @RequestParam(value="memberStatus", required=false) String memberStatus) {
-	    Member loginUser = (Member) session.getAttribute("loginUser");
+	public String changeStatus(HttpSession session,
+			@RequestParam(value = "memberStatus", required = false) String memberStatus) {
+		Member loginUser = (Member) session.getAttribute("loginUser");
 
+		memberService.updateMemberStatus(memberStatus, loginUser.getMember_id());
+		System.out.println("########" + loginUser.getMember_id() + memberStatus);
 
-	        memberService.updateMemberStatus( memberStatus,loginUser.getMember_id());
-	        System.out.println("########"+loginUser.getMember_id()+memberStatus);
-	     
-	       Member member = memberService.getMemberById(loginUser.getMember_id());
-	       
-	       session.setAttribute("loginUser", member);
-	        
-	        
-	      
+		Member member = memberService.getMemberById(loginUser.getMember_id());
+
+		session.setAttribute("loginUser", member);
+
 		return "redirect:/usr/home/main";
 	}
-	
+
 	@Value(value = "${picturePath}")
 	private String picturePath;
-	
+
 	@GetMapping("/getPicture")
 	@ResponseBody
 	public byte[] getPicture(String id) throws Exception {
-	   
-	   Member member = memberService.getMemberById(id);
-	   if(member==null) return null;
-	   
-	   String picture = member.getMember_pic();
-	   String imgPath = this.picturePath;
-	   
-	   InputStream in = new FileInputStream(new File(imgPath, picture));
-	   
-	   
-	   return IOUtils.toByteArray(in);
-	
+
+		Member member = memberService.getMemberById(id);
+		if (member == null)
+			return null;
+
+		String picture = member.getMember_pic();
+		String imgPath = this.picturePath;
+
+		InputStream in = new FileInputStream(new File(imgPath, picture));
+
+		return IOUtils.toByteArray(in);
+
 	}
-	
+
 	@GetMapping("/forget")
 	public void forget(String member_name, String member_phone) {
 	}
@@ -179,32 +178,29 @@ public class UsrCommonController {
 	@RequestMapping("/findId")
 	@ResponseBody
 	public String findId(String name, String phone, String email) {
-	    String msg = "";
-	    Member member = memberService.findId(name, email);
+		String msg = "";
+		Member member = memberService.findId(name, email);
 
-	    if (member == null) {
-	        msg = "입력하신 정보에 일치하는 아이디가 없습니다.";
-	        return msg;
-	    } else {
-	        return member.getMember_id();
-	    }
+		if (member == null) {
+			msg = "none-data";
+			return msg;
+		} else {
+			return member.getMember_id();
+		}
 	}
 
 	@PostMapping("/findPwd")
 	@ResponseBody
 	public String findPwd(String nameForPwd, String phoneForPwd, String emailForPwd, String id) {
-	    String msg = "";
-	    Member member = memberService.findPwd(id, nameForPwd);
+		String msg = "";
+		Member member = memberService.findPwd(id, nameForPwd);
 
-	    if (member == null) {
-	        msg = "입력하신 정보에 일치하는 회원이 없거나, 입력 오류입니다. 다시 입력해주세요.";
-	        return msg;
-	    } else {
-	        return member.getMember_pwd();
-	    }
+		if (member == null) {
+			msg = "none-data";
+			return msg;
+		} else {
+			return member.getMember_pwd();
+		}
 	}
 
-
 }
-
-
