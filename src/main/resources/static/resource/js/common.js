@@ -101,10 +101,8 @@ function checkedBookMark(murl){
       },
       traditional: true,
       success:function(data){
-         if(data=="ok"){
-            
-         }else{
-            $('.bookmarkCheck').addClass('text-yellow');
+        if(data=='no'){
+            $('.bookmarkCheck').addClass('text-yellow-300');
          }
       }
    });
@@ -120,10 +118,10 @@ function registBookMark(murl,pagename){
       traditional: true,
       success: function(data){
          if(data=="ok"){
-            $('.bookmarkCheck').addClass('text-yellow');
+            $('.bookmarkCheck').addClass('text-yellow-300');
             bookMarkList();
          }else{
-            $('.bookmarkCheck').removeClass('text-yellow');
+            $('.bookmarkCheck').removeClass('text-yellow-300');
             bookMarkList();
          }
       }

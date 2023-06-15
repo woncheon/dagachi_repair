@@ -177,8 +177,10 @@ public String dupCheck(String mcode, HttpSession session) {
    String register=((Member)session.getAttribute("loginUser")).getMember_id();
    BookMark dup=bookMarkService.dupCheck(register, mcode);
    if(dup==null) {
+	   System.out.println("gg");
       return "ok";
    }else {
+	   System.out.println("dd");
       return "no";
    }
    

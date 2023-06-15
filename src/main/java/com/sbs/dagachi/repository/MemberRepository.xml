@@ -65,7 +65,7 @@ update member
          
    </insert>
    
-   <select id="almostName" resultType="member">
+   <select id="almostName" resultType="Member">
     SELECT * 
     FROM member 
     WHERE member_name like concat('%',#{member_name},'%') 
@@ -82,5 +82,17 @@ update member
  	where member_id=#{id} AND member_name=#{name}
 
 	 </select>
+	 
+	 
+	<select id="searchMember" resultType="Member">
+		select *
+		from member
+		<if test="searchType=='name'">
+			where member_name like concat('%',#{keyword},'%')
+		</if>
+		<if test="searchType=='dep'">
+			where member_department1 like concat('%',#{keyword},'%')
+		</if>
+	</select>
  
 </mapper>

@@ -4,15 +4,15 @@
 <%@include file="../include/head.jspf"%>
 
   <!-- jquery CDN -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <!-- fullcalendar CDN -->
-  <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css' rel='stylesheet' />
-  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
-  <!-- fullcalendar 언어 CDN -->
-  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.min.js'></script>
+  
   <!-- moment?쓰려고 가져옴 -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
 <script>
+
+function modal(){
+	
+}
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
               // Server-side condition
               var memberAuth = ${loginUser.member_auth};
               if (memberAuth !== 1) {
-                $("#calendarModal").modal("show");
+                $('<div id="my_modal_1"></div>').modal("show");
               } else {
                 $("#calendarModal").modal("hide");
                 alert("공용 일정 등록 권한이 없습니다.");
@@ -286,15 +286,19 @@ document.addEventListener('DOMContentLoaded', function() {
 <script>
    window.onload=function(){
       bookMarkList();
-      checkedBookMark("/schedule/commonCal");
    }
+   
+   window.addEventListener('load', function(){
+	  checkedBookMark("/schedule/commonCal");
+	   
+   })
    
 </script>
 
-<div class="content-wrapper" style="background-color:white;">
+<div class="p-4 sm:ml-64" style="background-color:white;">
 <div>
-<div class="content-header">
-	   		    	<h1>
+<div class="content-header mb-6">
+	   		    	<h1 class="	text-3xl">
    <a href='javascript:registBookMark("/schedule/commonCal", "사내 일정")'>
    <i class="fas fa-star bookmarkCheck"></i>
    </a>
@@ -309,7 +313,7 @@ document.addEventListener('DOMContentLoaded', function() {
   <div id="calendar" class="mx-auto" style="max-height: 600px; max-width:1000px;" ></div>
  
 
-<div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<!-- <div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -340,7 +344,18 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
     </div>
   </div>
-</div>
+</div> -->
+<dialog id="my_modal_1" class="modal">
+  <form method="dialog" class="modal-box">
+    <h3 class="font-bold text-lg">Hello!</h3>
+    <p class="py-4">Press ESC key or click the button below to close</p>
+    <div class="modal-action">
+      <!-- if there is a button in form, it will close the modal -->
+      <button class="btn">Close</button>
+    </div>
+  </form>
+</dialog>
+
 
 <!-- 상세  -->
 <div class="modal fade" id="calendarDetailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

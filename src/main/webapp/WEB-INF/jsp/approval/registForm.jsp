@@ -5,9 +5,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ include file="../include/head.jspf"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<link
-	href="/resource/bootstrap/plugins/summernote/summernote-bs4.min.css"
-	rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
 
 <style>
 #approver {
@@ -50,7 +52,7 @@
 }
 </style>
 
-<div class="content-wrapper">
+<div class="p-4 sm:ml-64">
 	<div class="card" style="width: 90%; margin: auto;">
 		<div class="card-header">
 			<h5 style="padding: none;">새 결재 작성</h5>
@@ -247,10 +249,10 @@
 </div>
 
 <script>
-window.onload=function(){
-	summernote_go($('.content'),'<%=request.getContextPath()%>'
-			);
-	}
+window.addEventListener('load', function(){
+	  summernote_go($('.content'),'<%=request.getContextPath()%>');
+	   
+ })
 
 
 

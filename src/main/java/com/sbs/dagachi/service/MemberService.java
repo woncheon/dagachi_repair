@@ -95,5 +95,8 @@ public Member findId(String name,String email) {
 		return memberRepository.findPwd(id, name);
 	}
 	
+	public List<Member> searchMember(String searchType, String keyword) {
+		return memberRepository.searchMember(searchType, keyword);
+	}
 	
 }

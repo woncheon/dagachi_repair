@@ -33,5 +33,7 @@ public interface MemberRepository {
 	public List<Member> almostName(@Param("member_name")String member_name);
 	Member findId(String name,String email);
 	
-	Member findPwd(String id,String name);	
+	Member findPwd(String id,String name);
+	
+	List<Member> searchMember(String searchType, String keyword);
 }

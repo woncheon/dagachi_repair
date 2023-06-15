@@ -3,9 +3,13 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%@include file="/WEB-INF/jsp/include/head.jspf" %>
-<link href="/resource/bootstrap/plugins/summernote/summernote-bs4.min.css" rel="stylesheet"/>
 
-<div class="content-wrapper">
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
+<div class="p-4 sm:ml-64">
   <div class="col-md-12" style="text-align:right; margin-top:15px; margin-bottom:15px; background-color:white;">
     <h1 style="text-align:left; background-color:white;">공지사항 등록</h1>
     <button class="btn btn-sidebar" style="background-color: #D7D7D7; width: 100px;"><a href="/notice/noticeList">목록</a></button>
@@ -136,4 +140,46 @@
   function updateImportance(value) {
     document.getElementById('article_important').value = value;
   }
+  
+  function summernote_go(target,context){
+	   contextPath=context;
+	   
+	   target.summernote({
+	      placeholder:'여기에 내용을 적으세요.',
+	      lang:'ko-KR',
+	      height:200,
+			  
+	      
+	      dsableResizeEditor: true,
+	      callbacks:{
+	         onImageUpload: function(files, editor, welEditalbe){
+	            for(var file of files){
+	               if(file.name.substring(file.name.lastIndexOf(".")+1).toUpperCase() != "JPG"){
+	                  alert("JPG 이미지 형식만 가능합니다.");
+	                  return;
+	               }
+	               if(file.size > 1024*1024*1){
+	                  alert("이미지는 1MB 미만입니다.");
+	                  return;
+	               }
+	            }
+	            
+	            for (var file of files) {
+	               sendFile(file,this);
+	            }
+	         },
+	         onMediaDelete : function(target) {
+
+	            deleteFile(target[0].src);
+	         }
+	      }
+	     
+	   });
+	   
+	}
+  
+  window.addEventListener('load', function(){
+	  summernote_go($('.content'),'<%=request.getContextPath()%>');
+	   
+   })
 </script>
