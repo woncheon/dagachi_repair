@@ -70,19 +70,16 @@
   <label tabindex="0" class="m-1 text-2xl">
    <i class="far fa-bell p-4">
    <span class="badge badge-warning navbar-badge cnt"></span>
-   </i>
-    
+   </i>   
 </label>
   <ul tabindex="2" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-80 z-50">
   <li class="nav-item dropdown" id="notifications">
   <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-            <div id="notifications_next">알림이없습니다.</div>
+            <div id="notifications_next"></div>
             <div class="dropdown-divider"></div>
           </div>
           <div class="toastsDefaultBottomRight" style="display:none;"></div>
-            <div>
-            <button class="dropdown-item dropdown-footer " onclick="deleteNotifications()">알림 삭제</button>
-             </div>
+          <button class="" onclick="deleteNotifications()">알림 삭제</button>
     
     </li>
   </ul>
@@ -420,12 +417,11 @@ window.onload=function(){
                     // 일치하는 부분이 있으면 사용하고, 그렇지 않으면 '0'으로 기본 설정.
                     var count = numericContent ? numericContent[0] : '0';
                     $(".badge.badge-warning.navbar-badge.cnt").html(count);
-                    if(count=='0'){
-                    	$("#notifications_next").html("<span>새 소식이 없습니다.</span>")
-                    }else{
-                    
-                    $("#notifications_next").html(data);
+                    if(count == 0){
+                    	data='알람이 없습니다';
                     }
+                    $("#notifications_next").html(data);
+                    
                   },
                   error: function(jqXHR, textStatus, errorThrown) {
                     // Handle error here

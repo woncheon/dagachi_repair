@@ -66,13 +66,13 @@
             <td>${article.article_id }</td>
             <td>
                <c:if test="${article.article_important eq 1 }">
-                   <button class="badge bg-danger"type="button" style=" border:none;">중요</button>
+                   <button class="badge bg-red-400"type="button" style=" border:none;">중요</button>
                </c:if>
             </td>
          <td><a href="/notice/detail?article_id=${article.article_id }" style="color: ${article.article_important == 1 ? 'red' : 'black'}">${article.article_title}</a></td>   
             <td>
                  <c:if test="${article.article_attach != null}">
-                   <i class="fa fa-file"></i>
+                   <div class="">💾</div>
                  </c:if>
             </td>
             <td>${article.article_regdate.substring(0, 11) }</td>

@@ -308,9 +308,9 @@ function idfind_go() {
             } else {
               
               var resultHTML =
-            	  "찾으신 아이디는"+
-            	  "<p id='reId' class='text-bold text-6xl text-success reId'>" + response + "</p>"
-            	  +"입니다.";
+                 "찾으신 아이디는"+
+                 "<p id='reId' class='text-bold text-6xl text-success reId'>" + response + "</p>"
+                 +"입니다.";
              
               resultidElement.innerHTML = resultHTML;
               
@@ -366,10 +366,10 @@ function idfind_go() {
                 rePwdElement.innerHTML = ""; 
                 resultPwdElement.textContent = "일치하는 정보가 없습니다.";
               }else{
-            	  var resultHTML =
-                	  "찾으신 비밀번호는"+
-                	  "<p id='rePwd' class='text-bold text-6xl text-success reId'>" + response + "</p>"
-                	  +"입니다.";
+                 var resultHTML =
+                     "찾으신 비밀번호는"+
+                     "<p id='rePwd' class='text-bold text-6xl text-success reId'>" + response + "</p>"
+                     +"입니다.";
                  
                   resultPwdElement.innerHTML = resultHTML;
               }

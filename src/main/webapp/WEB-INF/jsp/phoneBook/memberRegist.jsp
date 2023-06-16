@@ -79,9 +79,9 @@
            <div class="flex mt-2 w-5/6 mx-auto text-center">
               <label for="" class="w-1/4 self-center font-bold text-lg">이메일</label>
               <div class="w-1/2 flex">
-	              <input name="email1" type="text" class="w-1/2 input input-bordered mr-1" onchange="inputEmail();"/>
-	              <span class="self-center">@</span>
-    	          <input name="email2" type="text" class="w-1/2 input input-bordered" onchange="inputEmail();"/>
+                 <input name="email1" type="text" class="w-1/2 input input-bordered mr-1" onchange="inputEmail();"/>
+                 <span class="self-center">@</span>
+                 <input name="email2" type="text" class="w-1/2 input input-bordered" onchange="inputEmail();"/>
               </div>
             </div>
 

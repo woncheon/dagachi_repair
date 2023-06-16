@@ -14,5 +14,5 @@
       ${notification.notification_date }
     </span>
   </a>
-  <div class="dropdown-divider"></div>
+  <div class='dropdown-divider'></div>
 </c:forEach>

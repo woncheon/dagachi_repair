@@ -5,10 +5,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ include file="../include/head.jspf"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
 
 <style>
@@ -249,10 +245,10 @@
 </div>
 
 <script>
-window.addEventListener('load', function(){
-	  summernote_go($('.content'),'<%=request.getContextPath()%>');
-	   
- })
+window.onload=function(){
+	summernote_go($('.content'),'<%=request.getContextPath()%>'
+			);
+	}
 
 
 
@@ -416,7 +412,10 @@ function formChange(e) {
 	  $(target).summernote("code", inp.innerHTML);
 	}
 
-
+window.addEventListener('load', function(){
+    summernote_go($('.content'),'<%=request.getContextPath()%>');
+    $('.note-toolbar').addClass('hidden'); 
+  })
 
 </script>
 
