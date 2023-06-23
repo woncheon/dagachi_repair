@@ -30,12 +30,12 @@
 
 <c:set var="percent" value="${pageScope.percent }"></c:set>
 
-<div class="card-body">
-		<div class="col-12">
-			<div class="info-box bg-success">
+<div class="mb-4">
+		<div class="w-full h-full">
+			<div class="info-box bg-gray-300 rounded-3xl p-2">
 			<input type="hidden" name="pl_id_value" value="" />
-				<div class="info-box-content">
-					<h3>${pl.pl_Name }</h3>
+				<div class="">
+					<h3 class="text-lg font-bold">${pl.pl_Name }</h3>
 					<span>전체 진행율 ${percent }%</span>
 					<div class="progress">
 						<div class="progress-bar" style="width: ${percent}%"></div>
@@ -54,41 +54,41 @@
 					
 					<div class="col-12">
 						<div class="card card-warning collapsed-card">
-						<div class="card-header">
+						<div class="card-header flex justify-between">
 						<h3 class="card-title">업무 상세보기(${fn:length(pl.extra_pmList) })</h3>
 						<div class="card-tools">
-						<button type="button" class="btn btn-tool" data-card-widget="collapse">
+						<button type="button" class="btn btn-sm btn-tool" data-card-widget="collapse" onclick="aaa('${pl.pl_Id }')">
 						<i class="fas fa-plus"></i>
 						</button>
 						</div>
 						
 						</div>
 						
-						<div class="card-body" style="display: none; color:black;">
-							<ul style="max-height:200px;">
+						<div class="card-body p-2" data-id="${pl.pl_Id }"style="display: none; color:black;">
+							<ul class="bg-white p-2 rounded-3xl"style="">
 									<c:forEach var="pm" items="${pmList }">
-										<li style="list-style: none;">
-											<div class="row">
-												<div class="col-sm-8">
+										<li class="" style="list-style: none;">
+											<div class="flex justify-between flex-nowrap">
+												<div class="w-2/3 font-bold">
 													${pm.pm_name }
 												</div>
-												<div class="col-sm-2 ">
+												<div class="w-1/6">
 													${pm.extra_pm_manager_name }
 												</div>
-												<div class="col-sm-2">
+												<div class="w-1/6">
 								
 													<c:if test="${pm.pm_status eq '0'}">
-														<span class="badge bg-primary">
+														<span class="badge bg-blue-300">
 														대기
 														</span>
 													</c:if>
 													<c:if test="${pm.pm_status eq '1'}">
-														<span class="badge bg-warning">
+														<span class="badge bg-yellow-300">
 														진행
 														</span>
 													</c:if>
 													<c:if test="${pm.pm_status eq '2'}">
-														<span class="badge bg-success">
+														<span class="badge bg-green-300">
 														완료
 														</span>
 													</c:if>
@@ -116,3 +116,4 @@
 
 				
 </c:forEach>
+

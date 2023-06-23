@@ -6,17 +6,18 @@
 	
 	<section class="content-header">
         <div class="container-fluid">
-           <div class="row md-2">
-              <div class="col-sm-6">
-                 <h1>업무 설정</h1>              
+           <div class="flex md-2 p-4 items-center flex-nowrap">
+              <div class="w-1/2">
+                 <h1 class="text-3xl font-bold">업무 설정</h1>              
               </div>
-              <div class="col-sm-6">
-                 <ol class="breadcrumb float-sm-right">
-                 <li class="breadcrumb-item">
+              <div class="w-1/2">
+                 <ol class="breadcrumb flex float-right">
+                 <li class="breadcrumb-item mr-2">
                     <a href="#">
                        <i class="fa fa-dashboard">업무 관리</i>
                     </a>
                  </li>
+                 <li class="mr-2">></li>
                  <li class="breadcrumb-item active">
                     업무 설정
                  </li>              
@@ -26,10 +27,10 @@
         </div>
         <hr/>
      </section>
-     <section class="col-12 mx-auto content-body mb-2"  >
+     <section class="w-full mx-auto content-body mb-2 p-4"  >
      	<div class="mt-2">
-     		<div class="row justify-content-center">
-	     		<div class="card card-row col-sm-5 mr-4 card-primary" style="min-height:500px;">
+     		<div class="flex justify-center flex-nowrap">
+	     		<div class="card card-row w-1/2 mr-4 card-primary" style="min-height:500px;">
 					<div class="card-header">
 						<h3 class="card-title">
 							${teamName } 업무 목록
@@ -38,12 +39,12 @@
 					<button class="btn moveall btn-outline-secondary" onclick="moveRightAll();" >&gt;&gt;</button>
 					<ul id="beforeSelect">
 						<c:forEach var="pl" items="${plList }">
-							<li class="li li${pl.pl_Id }"  style="list-style:none; cursor: pointer;" value="${pl.pl_Id }" onclick="move('${pl.pl_Id}')">${pl.pl_Name }</li>
+							<li class="li li${pl.pl_Id } btn bg-blue-300 w-full btn-sm"  style="list-style:none; cursor: pointer;" value="${pl.pl_Id }" onclick="move('${pl.pl_Id}')">${pl.pl_Name }</li>
 						</c:forEach>
 					</ul>
 				</div>
 				
-				<div class="card card-row col-sm-5 card-primary">
+				<div class="card card-row w-1/2 card-primary">
 					<div class="card-header">
 						<h3 class="card-title">
 							선택한 업무 목록
@@ -57,16 +58,33 @@
      		</div>
      	</div>
      </section>
-     <section class="row justify-content-center">
-     	<button type="button" class="btn bg-gradient col-sm-2 mr-2" data-toggle="modal" data-target="#modal-default"style="background: #5865F2; color:#ffffff;">
+     <section class="flex justify-center">
+     	<!-- <button type="button" class="btn w-1/6 bg-blue-300 mr-2" data-toggle="modal" data-target="#modal-default" onclick="modalling()">
 			팀 이동
-		</button>
-     	<button type="button" class="btn bg-gradient col-sm-2" style="background: #5865F2; color:#ffffff;" onclick="removePl();">삭제</button>
+		</button> -->
+		<button type="button" class="btn w-1/6 bg-blue-300 mr-2" data-toggle="modal" data-target="#modal-default" onclick="my_modal_5.showModal()">팀 이동</button>
+     	<button type="button" class="btn bg-red-300 w-1/6" style="" onclick="removePl();">삭제</button>
      </section>
      
      <input type="hidden" name="inputValue" value=""/>
+     <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
+  <form method="dialog" class="modal-box">
+    <h3 class="font-bold text-lg">업무 양도</h3>
+    <p class="py-4">해당 업무를 넘길 팀을 선택해 주세요</p>
+    <select name="" id="moveTeamName" class="w-full my-4">
+		<c:forEach var="team" items="${teamlist }">
+		<option value="${team.team_name }">${team.team_name }</option>
+		</c:forEach>
+	</select>
+    <div class="modal-action">
+      <!-- if there is a button in form, it will close the modal -->
+      <button type="button" class="btn bg-blue-300" onclick="moveTeam();" data-dismiss="modal">확인</button>
+      <button class="btn">닫기</button>
+    </div>
+  </form>
+</dialog>
      
-     <div class="modal fade" id="modal-default" style="display: none;" aria-hidden="true">
+     <%-- <div class="modal fade" id="modal-default" style="display: none;" aria-hidden="true">
 <div class="modal-dialog">
 <div class="modal-content">
 <div class="modal-header">
@@ -91,7 +109,7 @@
 
 </div>
 
-</div>
+</div> --%>
      
 <%@include file="../include/openfoot.jspf"%>
 <script>
@@ -120,8 +138,12 @@
 		};
 		
 	}
+	//$('button[data-toggle=modal]').on('click',showModal());
 	
-	
+	function modalling(){
+		//alert('dd');
+		$('#modal-default').css('display','block');
+	}
 	
 	function removePl(){
 	var arr=[];
@@ -151,13 +173,14 @@
 		
 	}
 	
+	
 	function moveTeam(){
 		var arr=[];
 		$('#afterSelect li').each(function(index, item){
 			//console.log(item.value);
 			arr.push(item.value);
 		});
-		//alert(arr);
+		//alert(arr[0]);
 		$('input[name=inputValue]').val(arr);
 		//alert($('input[name=inputValue]').val());
 		var tn=$('#moveTeamName').val();

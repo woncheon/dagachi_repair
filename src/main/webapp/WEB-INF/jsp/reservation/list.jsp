@@ -10,11 +10,13 @@
 
 }
 </style>
+
 <script>
-   window.onload=function(){
-      bookMarkList();
-      checkedBookMark("/reservation/list");
-   }
+window.addEventListener('load', function(){
+    checkedBookMark("/reservation/list");
+     
+  })
+  
    
 </script>
 
@@ -23,8 +25,8 @@
 
 <div class="col-md-12">
 <div class="content-header">
-    		<h1>
-   <a href='javascript:registBookMark("/reservation/list", "회의실 예약 메인")'>
+          <h1 class="text-3xl">
+   <a href='javascript:registBookMark("/reservation/list", "회의실 예약")'>
    <i class="fas fa-star bookmarkCheck"></i>
    </a>
       <span style="color: black;">
@@ -32,11 +34,11 @@
       </span>
    </h1>
 </div>
-	</div>
-		<c:if test="${loginUser.member_auth eq 2 or loginUser.member_auth eq 3}">
+   </div>
+      <c:if test="${loginUser.member_auth eq 2 or loginUser.member_auth eq 3}">
   <div id="btngroup" >
     <div class="insertbtn" style="margin: 10px;">
-      <button type="button" style="background-color:#717cfa; height:40px;  border-radius:5px; border:0.3px solid;" data-toggle="modal" data-target="#insertroom">신규 회의실 등록</button>
+      <button type="button" style="background-color:#717cfa; height:40px;  border-radius:5px; border:0.3px solid;"  onclick="insert_room.showModal()">신규 회의실 등록</button>
     </div>
     <div class="modifybtn" style="margin: 10px;">
       <button type="button" style="background-color:#ffd865;height:40px; border-radius:5px; border:0.3px solid;" data-toggle="modal" data-target="#modifyroom">회의실 정보 수정</button>
@@ -70,7 +72,7 @@
 </div>
   
 
-	
+   
 
 </div>
 
@@ -78,7 +80,7 @@
 
 <!-- modal 추가 -->
 
-<div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<dialog class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -104,8 +106,8 @@
           <input type="datetime-local" class="form-control" id="reservation_start" name="reservation_start">
           <label for="taskId" class="col-form-label">종료 날짜</label>
           <input type="datetime-local" class="form-control" id="reservation_end" name="reservation_end">
-         	<input type="hidden" id="reservation_start" name="reservation_start">
-			<input type="hidden" id="reservation_end" name="reservation_end">
+            <input type="hidden" id="reservation_start" name="reservation_start">
+         <input type="hidden" id="reservation_end" name="reservation_end">
         </div>
       </div>
       <div class="modal-footer">
@@ -114,10 +116,10 @@
       </div>
     </div>
   </div>
-</div>
+</dialog>
 
 <!-- 상세  -->
-<div class="modal fade" id="calendarDetailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<dialog class="modal fade" id="calendarDetailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -142,21 +144,21 @@
         </div>
       </div>
       <div class="modal-footer">
-      	
+         
         <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-	    <c:if test="${loginUser.member_id ne reservation_member }">
-		    <button type="button" class="btn btn-warning" id="modifyButton" data-dismiss="modal">수정</button>
-		    <button type="button" class="btn btn-danger" id="deleteButton" data-dismiss="modal">삭제</button>
-	  </c:if>
+       <c:if test="${loginUser.member_id ne reservation_member }">
+          <button type="button" class="btn btn-warning" id="modifyButton" data-dismiss="modal">수정</button>
+          <button type="button" class="btn btn-danger" id="deleteButton" data-dismiss="modal">삭제</button>
+     </c:if>
       </div>
     </div>
   </div>
-</div>
+</dialog>
 
 
 
 <!-- 수정,삭제  -->
-<div class="modal fade" id="calendarModifyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<dialog class="modal fade" id="calendarModifyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -191,124 +193,125 @@
       </div>
     </div>
   </div>
-</div>
+</dialog>
 
 
 
 <!-- 신규회의실생성 -->
-<div class="modal fade" id="insertroom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<dialog id="insert_room" class="modal">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
+    <div class="modal-box">
       <div class="modal-body">
-        <div class="form-group">
-  <div class="card card-primary card-outline direct-chat direct-chat-primary" style="maring-top:10px;">
+       
+  
     <div class="card-header">
       <h3 class="card-title">신규 회의실 생성</h3>
-      <div class="card-tools">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-		</div>
-		</div>
-		<div class="card-body">
-			<div class="direct-chat-messages">
-				<div class="direct-chat-msg">
-					<div class="direct-chat-infos clearfix"></div>
-					<form method="POST" action="../reservation/insert" id="room-form">
-						<div style="display: flex; justify-content: center; align-items: center; margin-top: 50px;">
-							<input type="hidden" name="room_code" />
-							<label for="room_name" style="margin-right: 10px;">회의실 이름:</label>
-							<input type="text" id="room_name" name="room_name" placeholder="회의실 이름을 입력하세요">
-						</div>
-							<div style="display: flex; justify-content: flex-end; margin-top: 100px;">
-								<input type="submit" class="btn btn-primary"style="background-color: #5865F2; color: white; border: none;" value="등록" />
-							</div>
-					</form>
-				</div>
-	</div>
-</div>
+     
+      </div>
+      <div class="card-body" style="">
+   
+               <div class="direct-chat-infos clearfix"></div>
+               <form method="POST" action="../reservation/insert" id="room-form">
+                  <div style="display:flex; align-items: center; margin-top: 50px;">
+                     <input type="hidden" name="room_code" />
+                     <label for="room_name" style="margin-right: 10px;">회의실 이름:</label>
+                     <input class="w-3/4 input input-bordered" type="text" id="room_name" name="room_name" placeholder="회의실 이름을 입력하세요">
+                  </div>
+                     <div style="display: flex; justify-content: flex-end; margin-top: 100px;">
+                        <input type="submit" class="btn bg-blue-400 mr-2"style=" color: white; border: none;" value="등록" />
+                        <button class="btn">닫기</button>
+                     </div>
+               </form>
+            
+   </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
-</div>
+ 
+</dialog>
 
 
-
-<div class="modal fade" id="modifyroom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<dialog class="modal fade" id="modifyroom" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
+      <div class="modal-box">
+    <div class="modal-content text-center">
       <div class="modal-body">
-        <h3 class="card-title">회의실 정보 수정</h3>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <h3 class="card-title flex">회의실 정보 수정<button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
-        </button>
+        </button></h3>
+
         <br/>
         <hr/>
+        <div class=" my-2">
           <input type="hidden" name="room_code" id="selectedRoomCode" style="margin-top:15px;">
-          <label for="room_code" class="col-form-label">회의실을 선택하세요</label>
-          <select class="form-control" id="roomCodeSelect" name="room_code">
+          <label for="room_code" class="col-form-label font-bold">회의실을 선택하세요</label>
+          <div class="flex justify-center">
+          <select class="form-control input input-bordered place-content-center" id="roomCodeSelect" name="room_code">
             <c:forEach var="room" items="${room}">
               <option value="${room.room_code}">${room.room_name}</option>
             </c:forEach>
           </select>
+          </div>
+          </div>
           <br/>
-          <label for="room_name" class="col-form-label">변경할 회의실 명을 입력하세요:</label>
-          <input type="text" name="room_name" id="roomNameInput">
+           <div class=" my-2">
+          <label for="room_name" class="col-form-label font-bold">변경할 회의실명을 입력하세요</label>
+          <input type="text" class="input input-bordered" name="room_name" id="roomNameInput">
+          </div>
       </div>
-      <div style="text-align:center;">*삭제시 회의실을 선택후 삭제 버튼을 눌려주세요.*</div>
+      <span style="text-align:center;"><span class="text-red-500 font-bold">*</span>삭제시 회의실을 선택후 삭제 버튼을 눌려주세요.<span class="text-red-500 font-bold">*</span></span>
       <div class="modal-footer">
-		<script>
-		  function submitRoomChanges() {
-		    var roomCode = document.getElementById("roomCodeSelect").value;
-		    var roomName = document.getElementById("roomNameInput").value;
-		
-		    $.ajax({
-		      url: "/reservation/roommodify",
-		      method: "POST",
-		      data: {
-		        room_code: roomCode,
-		        room_name: roomName
-		      },
-		      success: function(response) {
-		       alert("정상적으로 수정이 되었습니다.");
-		       location.reload();
-		      },
-		      error: function(error) {
-		       alert("수정중 오류가 발생했습니다. 다시 시도해 주세요.");
-		      }
-		    });
-		  }
-		</script>
-		<button type="button" class="btn btn-warning" data-dismiss="modal" onclick="submitRoomChanges()">수정</button>
-		<script>
-		  function confirmDelete() {
-		    if (confirm("정말 삭제하시겠습니까?")) {
-		      var roomCode = document.getElementById("roomCodeSelect").value;
-		
-		      $.ajax({
-		        url: "/reservation/roomdelete",
-		        method: "POST",
-		        data: {
-		          room_code: roomCode
-		        },
-		        success: function(response) {
-		          alert("삭제가 완료 되었습니다.");
-		          location.reload(); 
-		        },
-		        error: function(error) {
-		          alert("삭제중 오류가 발생했습니다. 다시 시도해 주세요.");
-		        }
-		      });
-		    }
-		  }
-		</script>
-		<button type="button" class="btn btn-danger" id="deleteButton" data-dismiss="modal" onclick="confirmDelete()">삭제</button>
+      <script>
+        function submitRoomChanges() {
+          var roomCode = document.getElementById("roomCodeSelect").value;
+          var roomName = document.getElementById("roomNameInput").value;
+      
+          $.ajax({
+            url: "/reservation/roommodify",
+            method: "POST",
+            data: {
+              room_code: roomCode,
+              room_name: roomName
+            },
+            success: function(response) {
+             alert("정상적으로 수정이 되었습니다.");
+             location.reload();
+            },
+            error: function(error) {
+             alert("수정중 오류가 발생했습니다. 다시 시도해 주세요.");
+            }
+          });
+        }
+      </script>
+      <button type="button" class="btn bg-yellow-400" data-dismiss="modal" onclick="submitRoomChanges()">수정</button>
+      <script>
+        function confirmDelete() {
+          if (confirm("정말 삭제하시겠습니까?")) {
+            var roomCode = document.getElementById("roomCodeSelect").value;
+      
+            $.ajax({
+              url: "/reservation/roomdelete",
+              method: "POST",
+              data: {
+                room_code: roomCode
+              },
+              success: function(response) {
+                alert("삭제가 완료 되었습니다.");
+                location.reload(); 
+              },
+              error: function(error) {
+                alert("삭제중 오류가 발생했습니다. 다시 시도해 주세요.");
+              }
+            });
+          }
+        }
+      </script>
+      <button type="button" class="btn bg-red-400" id="deleteButton" data-dismiss="modal" onclick="confirmDelete()">삭제</button>
       </div>
     </div>
   </div>
-</div>
+  </div>
+</dialog>
 
 
 
@@ -324,12 +327,12 @@
                 window.close();
                 location.reload();
             } else {
-            	window.close();
-            	location.reload();
+               window.close();
+               location.reload();
             }
         }).catch(function(error) {
             alert('등록 중 오류가 발생했습니다.');
-		    location.reload();
+          location.reload();
         });
     });
     
@@ -342,7 +345,7 @@
   document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
-    	  initialView: 'dayGridMonth',
+         initialView: 'dayGridMonth',
           headerToolbar: {
               left: 'prev,next addEventButton addAllselect',
               center: 'title',
@@ -398,7 +401,7 @@
             }
           });
         }
-     	
+        
         
         calendar.unselect();
       },
@@ -459,126 +462,126 @@
  
     });
     calendar.on('eventClick', function(info) {
-    	  
-    	  var event = info.event;
-    	  var eventData = event.extendedProps;
+         
+         var event = info.event;
+         var eventData = event.extendedProps;
 
-    	  var startFormatted = moment(event.start).format('YYYY-MM-DD HH:mm');
-    	  var endFormatted = moment(event.end).format('YYYY-MM-DD HH:mm');
+         var startFormatted = moment(event.start).format('YYYY-MM-DD HH:mm');
+         var endFormatted = moment(event.end).format('YYYY-MM-DD HH:mm');
 
     
-    	  $("#calendar_user_detail").val(eventData.reservation_member);
-    	  $("#room_name_detail").val(eventData.room_code);
-    	  $("#calendar_content_detail").val(event.title);
-    	  $("#reservation_start_detail").val(startFormatted);
-    	  $("#reservation_end_detail").val(endFormatted);
-    	  $("#reservation_code").val(eventData.reservation_code);
+         $("#calendar_user_detail").val(eventData.reservation_member);
+         $("#room_name_detail").val(eventData.room_code);
+         $("#calendar_content_detail").val(event.title);
+         $("#reservation_start_detail").val(startFormatted);
+         $("#reservation_end_detail").val(endFormatted);
+         $("#reservation_code").val(eventData.reservation_code);
 
 
-    	
-    	  var loginUser = "${loginUser.member_id}";
-    	  var reservationMember = $("#calendar_user_detail").val();
+       
+         var loginUser = "${loginUser.member_id}";
+         var reservationMember = $("#calendar_user_detail").val();
 
-    	  if (loginUser === reservationMember) {
-    		    $("#modifyButton").show();
-    		    $("#deleteButton").show();
-    		  } else {
-    		    $("#modifyButton").hide();
-    		    $("#deleteButton").hide();
-    		  }
+         if (loginUser === reservationMember) {
+              $("#modifyButton").show();
+              $("#deleteButton").show();
+            } else {
+              $("#modifyButton").hide();
+              $("#deleteButton").hide();
+            }
 
-    	
-    	  $("#calendarDetailModal").modal("show");
-    	  
-    	  $("#deleteButton").click(function() {
-    		    if (confirm("정말 삭제하시겠습니까?")) {
-    		       
-    		        var reservation_code = $("#reservation_code").val();
+       
+         $("#calendarDetailModal").modal("show");
+         
+         $("#deleteButton").click(function() {
+              if (confirm("정말 삭제하시겠습니까?")) {
+                 
+                  var reservation_code = $("#reservation_code").val();
 
-    		        $.ajax({
-    		            url: "<%=request.getContextPath()%>/reservation/delete",
-    		            type: "POST",
-    		            data: { reservation_code: reservation_code },
-    		            success: function(response) {
-    		                alert("정상적으로 삭제되었습니다.");
-    		                location.reload();
-    		            },
-    		            error: function(error) {
-    		                alert("삭제 중에 오류가 발생했습니다.");
-    		            }
-    		        });
-    		    }
-    		});
-    	  
-    	  $("#modifyButton").click(function() {
-    		   
-    		    $("#calendar_user_modify").val(eventData.reservation_member);
-    		    $("#room_code_modify").val(eventData.room_code);
-    		    $("#calendar_content_modify").val(event.title);
-    		    $("#reservation_start_modify").val(startFormatted);
-    		    $("#reservation_end_modify").val(endFormatted);
-    		    $("#reservation_code").val(eventData.reservation_code);
+                  $.ajax({
+                      url: "<%=request.getContextPath()%>/reservation/delete",
+                      type: "POST",
+                      data: { reservation_code: reservation_code },
+                      success: function(response) {
+                          alert("정상적으로 삭제되었습니다.");
+                          location.reload();
+                      },
+                      error: function(error) {
+                          alert("삭제 중에 오류가 발생했습니다.");
+                      }
+                  });
+              }
+          });
+         
+         $("#modifyButton").click(function() {
+             
+              $("#calendar_user_modify").val(eventData.reservation_member);
+              $("#room_code_modify").val(eventData.room_code);
+              $("#calendar_content_modify").val(event.title);
+              $("#reservation_start_modify").val(startFormatted);
+              $("#reservation_end_modify").val(endFormatted);
+              $("#reservation_code").val(eventData.reservation_code);
 
-    		  
-    		    $("#calendarModifyModal").modal("show");
-    		});
+            
+              $("#calendarModifyModal").modal("show");
+          });
 
-    	  $("#confirmModifyButton").click(function() {
-    		    var reservationMember = $("#calendar_user_modify").val();
-    		    var roomCode = $("#room_code_modify").val();
-    		    var reservationTitle = $("#calendar_content_modify").val();
-    		    var reservationStart = $("#reservation_start_modify").val();
-    		    var reservationEnd = $("#reservation_end_modify").val();
-    		    var reservationCode = $("#reservation_code").val();
+         $("#confirmModifyButton").click(function() {
+              var reservationMember = $("#calendar_user_modify").val();
+              var roomCode = $("#room_code_modify").val();
+              var reservationTitle = $("#calendar_content_modify").val();
+              var reservationStart = $("#reservation_start_modify").val();
+              var reservationEnd = $("#reservation_end_modify").val();
+              var reservationCode = $("#reservation_code").val();
 
-    		    var updatedData = {
-    		        reservation_member: reservationMember,
-    		        room_code: roomCode,
-    		        reservation_start: reservationStart,
-    		        reservation_end: reservationEnd,
-    		        reservation_title: reservationTitle,
-    		        reservation_code: reservationCode
-    		    };
+              var updatedData = {
+                  reservation_member: reservationMember,
+                  room_code: roomCode,
+                  reservation_start: reservationStart,
+                  reservation_end: reservationEnd,
+                  reservation_title: reservationTitle,
+                  reservation_code: reservationCode
+              };
 
-    		    $.ajax({
-    		        url: "<%=request.getContextPath()%>/reservation/modify",
-    		        type: "POST",
-    		        data: JSON.stringify(updatedData),
-    		        contentType: "application/json",
-    		        success: function(response) {
-    		            if (response === "success") {
-    		                var eventData = {
-    		                    title: reservationTitle,
-    		                    start: reservationStart,
-    		                    end: reservationEnd
-    		                };
-    		                calendar.addEvent(eventData);
-    		                alert("정상적으로 수정 되었습니다.")
-    		                $("#calendarModifyModal").modal("hide");
-    		                location.reload();
-    		            } else if (response === "isOverlappingEventserror") {
-    		                alert("해당 회의실은 이미 예약된 시간과 겹칩니다. 다시 선택해주세요.");
-    		                $("#calendarModifyModal").modal("show");
-    		            } else if (response === "isOverlappingEventserror") {
-    		                alert("해당 회의실에는 이미 예약된 사람이 있습니다. 다시 선택해주세요.");
-    		                $("#calendarModifyModal").modal("show");
-    		            } else {
-    		                alert("서버 오류가 발생했습니다. 다시 시도해주세요.");
-    		                $("#calendarModifyModal").modal("hide");
-    		                location.reload();
-    		            }
-    		        },
-    		        error: function(xhr, textStatus, errorThrown) {
-    		            if (xhr.status !== 200) {
-    		                alert("해당 회의실은 이미 예약된 시간과 겹치거나 이미 예약된 정보가 있습니다. 다시 선택해주세요.");
-    		            }
-    		        }
-    		    });
-    		});
+              $.ajax({
+                  url: "<%=request.getContextPath()%>/reservation/modify",
+                  type: "POST",
+                  data: JSON.stringify(updatedData),
+                  contentType: "application/json",
+                  success: function(response) {
+                      if (response === "success") {
+                          var eventData = {
+                              title: reservationTitle,
+                              start: reservationStart,
+                              end: reservationEnd
+                          };
+                          calendar.addEvent(eventData);
+                          alert("정상적으로 수정 되었습니다.")
+                          $("#calendarModifyModal").modal("hide");
+                          location.reload();
+                      } else if (response === "isOverlappingEventserror") {
+                          alert("해당 회의실은 이미 예약된 시간과 겹칩니다. 다시 선택해주세요.");
+                          $("#calendarModifyModal").modal("show");
+                      } else if (response === "isOverlappingEventserror") {
+                          alert("해당 회의실에는 이미 예약된 사람이 있습니다. 다시 선택해주세요.");
+                          $("#calendarModifyModal").modal("show");
+                      } else {
+                          alert("서버 오류가 발생했습니다. 다시 시도해주세요.");
+                          $("#calendarModifyModal").modal("hide");
+                          location.reload();
+                      }
+                  },
+                  error: function(xhr, textStatus, errorThrown) {
+                      if (xhr.status !== 200) {
+                          alert("해당 회의실은 이미 예약된 시간과 겹치거나 이미 예약된 정보가 있습니다. 다시 선택해주세요.");
+                      }
+                  }
+              });
+          });
 
 
 
-    	});
+       });
 
     calendar.render();
    

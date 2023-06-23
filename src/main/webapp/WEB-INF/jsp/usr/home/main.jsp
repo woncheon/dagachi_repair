@@ -41,24 +41,71 @@
     border-radius: 5px;
     transition: width 0.5s ease-in-out;
   }
-</style>
+#approval-list-tab
+ {
+  background-color: rgb(147, 197, 253);
+}
 
+#approval-success-list-tab{
+ background-color: rgb(252, 211, 77) ;
+}
+
+#approval-list-tab:hover
+ {
+
+  background-color:lightblue ;
+  
+}
+
+#approval-success-list-tab:hover{
+   background-color:rgb(253, 230, 138);
+}
+
+
+</style>
+<script>
+  $(document).ready(function() {
+    // Hide the "Approval Success List" initially
+    $("#approval-success-list").hide();
+
+    // Handle tab click events
+    $("#approval-list-tab").click(function() {
+      $("#approval-list").show();
+      $("#approval-success-list").hide();
+    });
+
+    $("#approval-success-list-tab").click(function() {
+      $("#approval-list").hide();
+      $("#approval-success-list").show();
+    });
+  });
+  
+</script>
 
 
 <div class="p-4 sm:ml-64">
   
-  <div class="row" style="background-color:#FCFCFC" >
-    <div class="col-7">
-      <div class="row m-4" style="width:100%;">
+  <div class="flex" style="background-color:#FCFCFC" >
+    <div class="w-7/12">
+      <div class="flex " style="width:100%;">
         <nav class="">
-          <div class="nav nav-tabs" id="product-tab" role="tablist">
-            <a class="nav-item nav-link active" id="approval-list-tab" data-toggle="tab" href="#approval-list" role="tab" aria-controls="approval-list" aria-selected="true">내가 상신한 문서</a>
-            <a class="nav-item nav-link" id="approval-success-list-tab" data-toggle="tab" href="#approval-success-list" role="tab" aria-controls="approval-success-list" aria-selected="false">내가 결재할 문서</a>
-          </div>
+<!--         <div class="tabs">
+        <a class="tab tab-lifted">Tab 1</a> 
+        <a class="tab tab-lifted tab-active">Tab 2</a> 
+        <a class="tab tab-lifted">Tab 3</a>
+      </div> -->
+<!--           <div class="nav tabs" id="product-tab" role="tablist">
+            <a class="" id="approval-list-tab" data-toggle="tab" href="#approval-list" role="tab" aria-controls="approval-list" aria-selected="true">내가 상신한 문서</a>
+            <a class="" id="approval-success-list-tab" data-toggle="tab" href="#approval-success-list" role="tab" aria-controls="approval-success-list" aria-selected="false">내가 결재할 문서</a>
+          </div> -->
         </nav>
         <div class="tab-content" style="width:100%;" id="nav-tabContent">
-          <div class="tab-pane fade show active" id="approval-list" role="tabpanel" aria-labelledby="product-desc-tab">
-            <div class="card">
+                <div class="tabs ">
+        <a class="tab tab-lifted tab-active "id="approval-list-tab" data-toggle="tab" href="#approval-list" role="tab" aria-controls="approval-list" aria-selected="true">내가 상신한 문서</a>
+        <a class="tab tab-lifted tab-active"id="approval-success-list-tab" data-toggle="tab" href="#approval-success-list" role="tab" aria-controls="approval-success-list" aria-selected="false">내가 결재할 문서</a>
+      </div>
+       <div class="tab-pane fade show active" id="approval-list" role="tabpanel" aria-labelledby="product-desc-tab">
+            <div class="card shadow">
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover text-nowrap">
                   <thead>
@@ -80,7 +127,7 @@
                           </c:if>
                          </c:forEach>
                           </td>
-                          <td>${approval.approval_title } <c:if test="${approval.approval_level eq 1 }"><span class="badge bg-danger">긴급</span></c:if></td>
+                          <td>${approval.approval_title } <c:if test="${approval.approval_level eq 1 }"><span class="badge bg-blue-400">긴급</span></c:if></td>
                           <td> <c:forEach items="${memberList }" var="member">
                           <c:if test="${member.member_id eq approval.approval_register }">
                            ${member.member_name } ${member.member_rank }
@@ -90,12 +137,12 @@
                            <fmt:formatDate value="${approval.approval_registdate }" pattern="yyyy.MM.dd HH.mm" />
                           </td>
                           <td>
-                           <c:if test="${approval.approval_status eq 0}"><span class="badge bg-warning">대기</span></c:if>
-                          <c:if test="${approval.approval_status eq 1}"><span class="badge bg-success">완료</span></c:if>
-                          <c:if test="${approval.approval_status eq 2}"><span class="badge bg-danger">반려</span></c:if>
+                           <c:if test="${approval.approval_status eq 0}"><span class="badge bg-yellow-400">대기</span></c:if>
+                          <c:if test="${approval.approval_status eq 1}"><span class="badge bg-green-400">완료</span></c:if>
+                          <c:if test="${approval.approval_status eq 2}"><span class="badge bg-red-400">반려</span></c:if>
                           </td>
                         </tr>
-					</c:forEach>
+               </c:forEach>
                     <c:if test="${empty approvalList}">
                       <tr>
                         <td colspan="8">결재 내역이 없습니다.</td>
@@ -106,7 +153,7 @@
               </div>
             </div>
           </div>
-          <div class="tab-pane fade" id="approval-success-list" role="tabpanel" aria-labelledby="product-comments-tab">
+           <div class="tab-pane fade" id="approval-success-list" role="tabpanel" aria-labelledby="product-comments-tab">
             <div class="card">
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover text-nowrap">
@@ -144,7 +191,7 @@
                           <c:if test="${approval.approval_status eq 2}"><span class="badge bg-danger">반려</span></c:if>
                           </td>
                         </tr>
-					</c:forEach>
+               </c:forEach>
                     <c:if test="${empty approvalList}">
                       <tr>
                         <td colspan="8">결재 내역이 없습니다.</td>
@@ -158,16 +205,19 @@
           
         </div>
       </div>
-      <div class="row m-4" style="width:100%;">
+      <div class="flex my-2" style="width:100%;">
         <nav class="">
-          <div class="nav nav-tabs" id="product-tab" role="tablist">
+         <!--  <div class="nav nav-tabs" id="product-tab" role="tablist">
             <a class="nav-item nav-link active" id="project-send-tab" data-toggle="tab" href="#project-send" role="tab" aria-controls="project-send" aria-selected="true">받은 요청 목록</a>
             <a class="nav-item nav-link" id="project-receive-tab" data-toggle="tab" href="#project-receive" role="tab" aria-controls="project-receive" aria-selected="false">보낸 요청 목록</a>
-          </div>
+          </div> -->
         </nav>
         <div class="tab-content" style="width:100%;" id="nav-tabContent">
+                        <div class="tabs ">
+        <a class="tab tab-lifted tab-active " style="background-color: rgb(147, 197, 253);"id="project-send"id="project-send-tab" data-toggle="tab" href="#project-send" role="tab" aria-controls="project-send" aria-selected="true">받은 요청 목록</a>
+      </div>
           <div class="tab-pane fade show active" id="project-send" role="tabpanel" aria-labelledby="product-desc-tab">
-            <div class="card">
+            <div class="card shadow">
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover text-nowrap">
                   <thead>
@@ -207,7 +257,7 @@
               </div>
             </div>
           </div>
-          <div class="tab-pane fade" id="project-receive" role="tabpanel" aria-labelledby="product-comments-tab">
+<%--           <div class="tab-pane fade" id="project-receive" role="tabpanel" aria-labelledby="product-comments-tab">
             <div class="card">
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover text-nowrap">
@@ -248,14 +298,13 @@
                 </table>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="row m-4 w-100">
-        <div class="col-6 pl-0">
-          <div class="card">
+          </div> --%>
+                  <div class="w-full pl-0 my-2">
+          <div class="card shadow">
             <div class="card-header">
-              <h3 class="card-title">업무 진행도</h3>
+            <div class="tabs ">
+                   <a class="tab tab-lifted tab-active project" id="tab" style="background-color: rgb(147, 197, 253);">업무 진행도</a>
+            </div>
             </div>
             <div class="card-body table-responsive p-0">
               <table class="table table-hover text-nowrap">
@@ -291,45 +340,23 @@
             </div>
           </div>
         </div>
-        <div class="col-6 pr-0">
-<div class="card " >
-  <div class="card-header">
-    <h3 class="card-title">공지사항</h3>
-  </div>
-
-  <div class="card-body table-responsive p-0">
-    <table class="table table-hover text-nowrap">
-      <thead>
-        <tr>
-          <th >번호</th>
-          <th>제목</th>
-          <th>작성날짜</th>
-        </tr>
-      </thead>
-      <tbody id="noticeTableBody">
-       <c:forEach var="article" items="${borad1}" >
-       <tr>
-       	<td>${article.article_id }</td>
-       	<td><a href="/notice/detail?article_id=${article.article_id }">${article.article_title }</a></td>
-       	<td>${article.article_regdate.substring(0, 11)}</td>
-       </tr>
-       </c:forEach>
-      </tbody>
-    </table>
-  </div>
-</div>
         </div>
       </div>
+           
+      
     </div>
-    <div class="col-5">
-      <div class="row mt-4">
+    <div class="w-5/12">
+      <div class="flex ">
 
         <div id='calendar'></div>
 
       </div>
-      <div class="row m-4">
-        <div class="card card-row card-secondary w-100 m-4 h-100">
-          <div class="card-header">
+      
+<div class="flex ">
+        <div class="w-6/12 pl-0 ">
+     <div class="flex justify-center w-auto m-4 shadow rounded-xl">
+        <div class="card card-flex card-secondary w-100 m-4 h-100 ">
+          <div class="card-header bordered">
             <h3 class="card-title">
               오늘 할일
             </h3>
@@ -344,7 +371,41 @@
 </div>
         </div>
       </div>
+        </div>
+        <div class="w-6/12 pr-0 my-2">
+<div class="card shadow" >
+  <div class="card-header">
+                <div class="tabs ">
+          <a class="tab tab-lifted tab-active notice" style="background-color: rgb(147, 197, 253);">공지사항</a>
+            </div>
+  </div>
+
+  <div class="card-body table-responsive p-0">
+    <table class="table table-hover text-nowrap">
+      <thead>
+        <tr>
+          <th >번호</th>
+          <th>제목</th>
+          <th>작성날짜</th>
+        </tr>
+      </thead>
+      <tbody id="noticeTableBody">
+       <c:forEach var="article" items="${borad1}" >
+       <tr>
+          <td>${article.article_id }</td>
+          <td><a href="/notice/detail?article_id=${article.article_id }">${article.article_title }</a></td>
+          <td>${article.article_regdate.substring(0, 11)}</td>
+       </tr>
+       </c:forEach>
+      </tbody>
+    </table>
+  </div>
+</div>
+        </div>
+      </div>
+      
     </div>
+    
   </div>
 
 
@@ -406,22 +467,22 @@ document.addEventListener('DOMContentLoaded', function() {
       locale: 'ko',
       selectMirror: true,
       select: function(arg) {
-    	  var title = prompt('Event Title:');
-    	  if (title) {
-    	    var schedule_code = arg.schedule_code;
-    	    var title = arg.title;
-    	    var content = arg.content;
-    	    var start = arg.start;
-    	    var end = arg.end;
-    	    var writer = arg.writer;
-    	    // Prompt the user for the schedule_code value
-    	    var schedule_code = prompt('schedule_code:');
+         var title = prompt('Event Title:');
+         if (title) {
+           var schedule_code = arg.schedule_code;
+           var title = arg.title;
+           var content = arg.content;
+           var start = arg.start;
+           var end = arg.end;
+           var writer = arg.writer;
+           // Prompt the user for the schedule_code value
+           var schedule_code = prompt('schedule_code:');
           // Send the event data to the server and save it in the database
           $.ajax({
             url: '/getCommonlCalendar',
             method: 'GET',
             data: {
-            	schedule_code : arg.schedule_code,
+               schedule_code : arg.schedule_code,
                 title : arg.title,
                 content : arg.content,
                 start : arg.start,
@@ -431,7 +492,7 @@ document.addEventListener('DOMContentLoaded', function() {
             success: function(response) {
               // If the event is saved successfully, add it to the calendar
               var eventData = JSON.parse(response);
-			
+         
             },
             error: function() {
               alert('저장 실패.');
@@ -449,7 +510,7 @@ document.addEventListener('DOMContentLoaded', function() {
             var loginUser = '${loginUser.member_id}';
             var events = data.map(function(event) {
             var eventData = {
-            	schedule_code:event.schedule_code,
+               schedule_code:event.schedule_code,
                 title: event.title,
                 content:event.content,
                 start: event.start,
@@ -476,13 +537,13 @@ document.addEventListener('DOMContentLoaded', function() {
               // Server-side condition
               var memberAuth = ${loginUser.member_auth};
               if (memberAuth !== 1) {
-            	location.href='/schedule/commonCal';
-            	
+               location.href='/schedule/commonCal';
+               
               } else {
-            	 
+                
                 alert("공용 일정 등록 권한이 없습니다.");
                 if (confirm("공용일정 페이지로 이동하시겠습니까?")) {
-                	location.href='/schedule/commonCal';
+                   location.href='/schedule/commonCal';
                 }
             }
           }
@@ -512,7 +573,7 @@ document.addEventListener('DOMContentLoaded', function() {
          $("#deleteButton").click(function() {
              if (confirm("정말 삭제하시겠습니까?")) {
                 
-            	  $("#schedule_code").val(eventData.schedule_code);
+                 $("#schedule_code").val(eventData.schedule_code);
 
                  $.ajax({
                      url: "<%=request.getContextPath()%>/schedule/delete",
@@ -528,37 +589,37 @@ document.addEventListener('DOMContentLoaded', function() {
                  });
              }
          });
-   		
+         
 
          // Show the modal
          $("#calendarDetailModal").modal("show");
          
          //수정
-	 $("#modifyButton").click(function() {
-	  // Get the event data
-	
-	  // Set the values in the calendarModifyModal inputs
-	  $("#schedule_title_modify").val(event.title);
-	  $("#schedule_content_modify").val(eventData.content);
-	  $("#schedule_start_modify").val(startFormatted);
-	  $("#schedule_end_modify").val(endFormatted);
-	  $("#schedule_code").val(eventData.schedule_code);
-	  
-	  // Get the schedule_code value
-	  var schedule_code = $("#schedule_code").val();
+    $("#modifyButton").click(function() {
+     // Get the event data
+   
+     // Set the values in the calendarModifyModal inputs
+     $("#schedule_title_modify").val(event.title);
+     $("#schedule_content_modify").val(eventData.content);
+     $("#schedule_start_modify").val(startFormatted);
+     $("#schedule_end_modify").val(endFormatted);
+     $("#schedule_code").val(eventData.schedule_code);
+     
+     // Get the schedule_code value
+     var schedule_code = $("#schedule_code").val();
 
             // Show the calendarModifyModal
             $("#calendarModifyModal").modal("show");
             
             $("#confirmModifyButton").click(function(e) {
-            	e.stopPropagation()
+               e.stopPropagation()
                 // Get the updated values from the calendarModifyModal inputs
                 var title = $("#schedule_title_modify").val();
                 var content = $("#schedule_content_modify").val();
                 var start = $("#schedule_start_modify").val();
                 var end = $("#schedule_end_modify").val();
                 var scheduleCode = $("#schedule_code").val();
-				
+            
                 
                 // Construct the data object to be sent to the server
                 var updatedData = {
@@ -617,12 +678,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 url: '<%=request.getContextPath()%>/schedule/common/saveEvent',
                 method: 'POST',
                 data: {
-                	title : title,
-                	content : content,
-                	start : start,
-                	end : end,
-                	register : register,
-                	regtime : regtime
+                   title : title,
+                   content : content,
+                   start : start,
+                   end : end,
+                   register : register,
+                   regtime : regtime
                 },
                 success: function(response) {
                     if (response === "success") {

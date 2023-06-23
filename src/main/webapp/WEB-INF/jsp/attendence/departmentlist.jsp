@@ -4,7 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%@include file="/WEB-INF/jsp/include/openhead.jspf" %>
-	<div class="flex" style="margin-top:10px;">
+	<div class="flex justify-between" style="margin-top:10px;">
+	<div style="margin:10px;">근태 : <span class="text-blue-700">${attendenceCount }</span> 건</div>
      <form class="flex" style="text-align:right;margin-right:10px;">
         <input type="hidden" name="reservation_code" value="${param.reservation_code}" />
         	<select name="searchKeywordTypeCode" data-value="${param.searchKeywordTypeCode }" id="" class="select select-bordered">
@@ -12,12 +13,14 @@
 	           <option value="attendence_regDate">날짜</option>
                <option value="member_department">부서별</option>
         	</select>
-        <input name="searchKeyword" type="text" class="ml-2 w-72 input input-bordered" placeholder="검색어" maxlength="20" value="${param.searchKeyword }" />
-      		<button type="submit" style="background-color:#5865F2; color:white; border:none;">검색</button>
+        <input name="searchKeyword" type="text" class="w-72 input input-bordered" placeholder="검색어" maxlength="20" value="${param.searchKeyword }" />
+      		 <button type="submit" class="col-sm-1 btn form-control btn-default" onclick="">
+                 <i class="fas fa-search"></i>
+       </button>
      </form>
     
   </div>
-<div style="margin:10px;">근태 : <span class="text-blue-700">${attendenceCount }</span> 건</div>
+
 <div class="content-list" style="margin:10px;">
 	<div class="mt-3">
 <table class="table table-fixed w-full">
@@ -62,14 +65,14 @@
 </table>
 
 	</div>
- <div class="row">
+ <div class="flex justify-center">
   <div class="col">
     <nav aria-label="Contacts Page Navigation">
       <c:set var="pageMenuArmLen" value="4" />
       <c:set var="startPage" value="${page - pageMenuArmLen < 1 ? 1 : page - pageMenuArmLen}" />
       <c:set var="endPage" value="${page + pageMenuArmLen > pagesCount ? pagesCount : page + pageMenuArmLen}" />
       <c:set var="pageBaseUri" value="boardId=${boardId}&searchKeyword=${param.searchKeyword}&searchKeywordTypeCode=${param.searchKeywordTypeCode}" />
-      <ul class="pagination justify-content-center m-0">
+      <ul class="pagination flex justify-center m-0">
         <c:if test="${startPage > 1}">
           <li class="page-item">
             <a class="page-link btn btn-sm" href="?${pageBaseUri}&page=1">1</a>

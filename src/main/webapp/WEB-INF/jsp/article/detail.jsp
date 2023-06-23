@@ -108,6 +108,7 @@ function modify(){
                 toolbar: [], 
                 disableResizeEditor: true 
             });
+            $('.summernote').summernote('disable');
         });
     });
 </script>
